@@ -7,7 +7,7 @@ import cv2
 from data_loader import data_loader
 from test_loader import test_loader
 import matplotlib.pyplot as plt
-
+import json
 # generate dataset
 train_choking_x,train_choking_y = data_loader.read("train_choking")
 vali_choking_x, vali_choking_y = data_loader.read("validation_choking")
@@ -55,3 +55,19 @@ plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Choking probability')
 plt.legend()
 plt.show()
+#predict plt
+time = range(1, len(y_pred) + 1)
+plt.plot(time, y_pred)
+plt.xlabel("time")
+plt.ylabel("probability")
+plt.title('choking prediction')
+plt.legend()
+plt.show()
+#json file generate
+jsontext = {"points": []}
+for i in range(len(y_pred)):
+  jsontext["points"].append({"Time":str(i), "predict_result":str(y_pred[i])})
+jsondata = json.dumps(jsontext,indent=4,separators=(",", ": "))
+f = open("/content/drive/My Drive/training/filename.json", "w")
+f.write(jsondata)
+f.close()
