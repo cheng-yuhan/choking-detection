@@ -34,6 +34,7 @@ model.compile(optimizer=optimizers.RMSprop(lr=2*1e-4),
               loss='binary_crossentropy', metrics=['acc'])
 history = model.fit(train_choking_x, train_choking_y, epochs=1, batch_size=10,
                     validation_data=(vali_choking_x, vali_choking_y))
+model.save("choking_model.h5")
 y_pred = model.predict(test_choking_x)
 #print("real_label", vali_choking_y)
 
