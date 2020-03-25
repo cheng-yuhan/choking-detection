@@ -1,5 +1,5 @@
 from keras.models import load_model
-load_model = load_model("choking_model.h5")
+load_model = load_model("choking_model.h5")   # type in the filepath of the saved model
 from test_loader import test_loader
 import matplotlib.pyplot as plt
 
