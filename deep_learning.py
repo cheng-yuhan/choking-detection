@@ -20,19 +20,21 @@ test_choking_x = test_choking_x.astype("float32") / 255
 num,time, w, h, color = train_choking_x.shape
 model = models.Sequential()
 
-model.add(layers.Conv3D(32, (3, 3, 3),input_shape=(time, w, h, 3),padding="same",activation="relu"))
-model.add(layers.Conv3D(64, (3, 3, 3), padding="same", activation="relu"))
+model.add(layers.Conv3D(32, (1, 3, 3),input_shape=(time, w, h, 3),padding="same",activation="relu"))
+model.add(layers.Conv3D(32, (1, 3, 3), padding="same", activation="relu"))
+model.add(layers.MaxPooling3D((1, 2, 2)))
+model.add(layers.Conv3D(64, (2, 3, 3), padding="same", activation="relu"))
+model.add(layers.Conv3D(64, (2, 3, 3), padding="same", activation="relu"))
 model.add(layers.MaxPooling3D((2, 2, 2)))
-model.add(layers.Conv3D(64, (3, 3, 3), padding="same", activation="relu"))
-model.add(layers.Conv3D(128, (3, 3, 3), padding="same", activation="relu"))
-model.add(layers.MaxPooling3D((2, 2, 2)))
-model.add(layers.Reshape((time//4, -1)))
-model.add(layers.Bidirectional(layers.LSTM(units=64, dropout=0.1, recurrent_dropout=0.2)))
+model.add(layers.Reshape((time//2, -1)))
+model.add(layers.LSTM(units=64, dropout=0.1, recurrent_dropout=0.1, return_sequences=True))
+model.add(layers.LSTM(units=32, dropout=0.1, recurrent_dropout=0.1))
+#model.add(layers.Dense(32, activation="relu"))
 model.add(layers.Dense(1, activation="sigmoid"))
 
 model.compile(optimizer=optimizers.RMSprop(lr=2*1e-4),
               loss='binary_crossentropy', metrics=['acc'])
-history = model.fit(train_choking_x, train_choking_y, epochs=1, batch_size=10,
+history = model.fit(train_choking_x, train_choking_y, epochs=1, batch_size=40,
                     validation_data=(vali_choking_x, vali_choking_y))
 model.save("choking_model.h5")
 y_pred = model.predict(test_choking_x)
