@@ -4,7 +4,6 @@ from test_loader import test_loader
 import matplotlib.pyplot as plt
 
 test_choking_x  = test_loader.read("test_choking")
-test_choking_x = test_choking_x.astype("float32") / 255
 
 y_pred = load_model.predict(test_choking_x)
 
