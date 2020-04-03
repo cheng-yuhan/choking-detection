@@ -22,7 +22,8 @@ class data_loader():
                     #print('not res , not image')
                     break
                 w, h, color = image.shape
-                image = cv2.resize(image, (128, 72))
+                image = cv2.resize(image, (96, 54))
+                image = (image - image.min(axis=0)) / (image.max(axis=0) - image.min(axis=0))
                 clip_1.append(image)
                 if times > 30:
                     clip_2.append(image)
