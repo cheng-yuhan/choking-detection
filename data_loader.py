@@ -34,7 +34,7 @@ class data_loader():
                     #print('not res , not image')
                     break
                 #print(image.shape)
-                image = cv2.resize(image, (36, 64))
+                image = cv2.resize(image, (144, 216))
                 image = (image - image.min(axis=0)) / (image.max(axis=0) - image.min(axis=0))
 
                 clip_1.append(image)
