@@ -17,7 +17,6 @@ class test_loader():
     def read(self, data_dir):
         model = self.feature_model()
         video_data = []
-        video_label = []
         for file in os.listdir(data_dir):
             clip_1 = []
             clip_2 = []
@@ -49,9 +48,7 @@ class test_loader():
                     video_data.append(np.array(clip_2))
                     clip_2 = []
         video_data = np.array(video_data)
-        video_label = np.array(video_label)
-        print(video_label.shape)
-        return video_data,video_label
+        return video_data
 
 
 
