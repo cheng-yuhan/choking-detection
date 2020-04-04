@@ -2,8 +2,8 @@ import os
 import cv2
 import numpy as np
 from keras import layers
-from keras import models
-from keras.applications import VGG16,InceptionV3
+from tensorflow.keras import models
+from tensorflow.keras.applications import VGG16,InceptionV3
 
 
 class test_loader():
@@ -17,6 +17,7 @@ class test_loader():
     def read(self, data_dir):
         model = self.feature_model()
         video_data = []
+        video_label = []
         for file in os.listdir(data_dir):
             clip_1 = []
             clip_2 = []
@@ -33,7 +34,7 @@ class test_loader():
                     #print('not res , not image')
                     break
                 #print(image.shape)
-                image = cv2.resize(image, (36, 64))
+                image = cv2.resize(image, (144, 216))
                 image = (image - image.min(axis=0)) / (image.max(axis=0) - image.min(axis=0))
 
                 clip_1.append(image)
@@ -48,6 +49,7 @@ class test_loader():
                     video_data.append(np.array(clip_2))
                     clip_2 = []
         video_data = np.array(video_data)
+        print(video_data)
         return video_data
 
 
