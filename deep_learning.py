@@ -7,18 +7,12 @@ import cv2
 from data_loader import data_loader
 from test_loader import test_loader
 import matplotlib.pyplot as plt
-import json
+
 # generate dataset
 train_choking_x,train_choking_y = data_loader.read("train_choking")
 vali_choking_x, vali_choking_y = data_loader.read("validation_choking")
-test_choking_x  = test_loader.read("test_choking")
-
-train_choking_x = train_choking_x.astype("float32") /255
-vali_choking_x = vali_choking_x.astype("float32") /255
-test_choking_x = test_choking_x.astype("float32") / 255
 
 num,time, w, h, color = train_choking_x.shape
-model = models.Sequential()
 
 model_recog = models.Sequential()
 model_recog.add(layers.Reshape((time, -1)))
@@ -26,13 +20,12 @@ model_recog.add(layers.LSTM(units=64, dropout=0.1, recurrent_dropout=0.1, return
 model_recog.add(layers.LSTM(units=32, dropout=0.1, recurrent_dropout=0.1))
 #model.add(layers.Dense(32, activation="relu"))
 model_recog.add(layers.Dense(1, activation="sigmoid"))
-
-model.compile(optimizer=optimizers.RMSprop(lr=2*1e-4),
-              loss='binary_crossentropy', metrics=['acc'])
-history = model.fit(train_choking_x, train_choking_y, epochs=1, batch_size=40,
+model_recog.compile(optimizer=optimizers.RMSprop(lr=1e-5), loss='binary_crossentropy', metrics=['acc'])
+history = model_recog.fit(train_choking_x, train_choking_y, epochs=10, batch_size=30,
                     validation_data=(vali_choking_x, vali_choking_y))
-model.save("choking_model.h5")
-y_pred = model.predict(test_choking_x)
+
+model_recog.save("choking_model.h5")
+#y_pred = model.predict(test_choking_x)
 #print("real_label", vali_choking_y)
 
 acc = history.history['acc']
@@ -51,14 +44,6 @@ plt.title('Training and validation loss')
 plt.legend()
 plt.plot(epochs, val_loss, 'b', label='Validation loss')
 plt.title('Choking probability')
-plt.legend()
-plt.show()
-#predict plt
-time = range(1, len(y_pred) + 1)
-plt.plot(time, y_pred)
-plt.xlabel("time")
-plt.ylabel("probability")
-plt.title('choking prediction')
 plt.legend()
 plt.show()
 #json file generate
