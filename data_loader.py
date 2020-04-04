@@ -1,9 +1,9 @@
 import os
 import cv2
 import numpy as np
-from keras import layers
-from keras import models
-from keras.applications import VGG16,InceptionV3
+from tensorflow.keras import layers
+from tensorflow.keras import models
+from tensorflow.keras.applications import VGG16,InceptionV3
 
 
 class data_loader():
