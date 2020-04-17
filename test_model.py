@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 test_loader = test_loader()
 test_choking_x  = test_loader.read("test_choking")
 
-y_pred = load_model.predict(test_choking_x)-0.15
+y_pred = load_model.predict(test_choking_x)
 
 time = range(1, len(y_pred) + 1)
 plt.plot(time, y_pred)
