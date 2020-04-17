@@ -18,9 +18,8 @@ model_recog = models.Sequential()
 model_recog.add(layers.Reshape((time, -1)))
 model_recog.add(layers.LSTM(units=64, dropout=0.1, recurrent_dropout=0.1, return_sequences=True))
 model_recog.add(layers.LSTM(units=32, dropout=0.1, recurrent_dropout=0.1))
-#model.add(layers.Dense(32, activation="relu"))
 model_recog.add(layers.Dense(1, activation="sigmoid"))
-model_recog.compile(optimizer=optimizers.RMSprop(lr=1e-5), loss='binary_crossentropy', metrics=['acc'])
+model_recog.compile(optimizer=optimizers.Adagrad(), loss='binary_crossentropy', metrics=['acc'])
 history = model_recog.fit(train_choking_x, train_choking_y, epochs=10, batch_size=30,
                     validation_data=(vali_choking_x, vali_choking_y))
 
