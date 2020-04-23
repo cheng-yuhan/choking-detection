@@ -7,6 +7,7 @@ import cv2
 from data_loader import data_loader
 from test_loader import test_loader
 import matplotlib.pyplot as plt
+import json
 
 # generate dataset
 train_choking_x,train_choking_y = data_loader.read("train_choking")
