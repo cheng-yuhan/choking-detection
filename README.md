@@ -1,6 +1,9 @@
 # choking-detection
 Instruction
-  for all training videos, its names need to follow the type "videoname_number_". The number in the video's name represent that from which second, the choking can be detected. The file data_loader will automatically generate the label based on the name. 
-  For example, choking1_5_ means starting from 5s, the video changes from none-choking into choking. After video is cutted into 2 second clips. the clips from (0s,2s), (1s,3s), (2s,4s), (3s,5s) will be labelled none-choking, while the rest of clips will be labelled choking. 
-  
-  If you need to test the model, type in the filepaths of the videos and the saved model, then run "test_model.py ".
+1. git clone https://github.com/cheng-yuhan/choking-detection.git
+2. download saved model from Google Drive.
+3. edit test_model.py:
+    add the test video in a folder, fill in the folder filepath as instructed in the code.
+    fill in the saved model filepath as said in the code.
+    fill in the filepath you want to save the json file as said in the code.
+4. run the test_model.py
