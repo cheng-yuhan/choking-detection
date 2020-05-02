@@ -24,7 +24,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import json
 
-factor = 0.05
+factor = 0
 test_loader = test_loader()
 test_choking_x  = test_loader.read("test_choking")  #type in the filepath of the test folder
 
