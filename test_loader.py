@@ -9,7 +9,7 @@ from tensorflow.keras.applications import VGG16,InceptionV3
 class test_loader():
     def feature_model(self):
         model = models.Sequential()
-        conv_base = InceptionV3(weights='imagenet', include_top=False, input_shape=(216, 144, 3))
+        conv_base = InceptionV3(weights='imagenet', include_top=False, input_shape=(180, 180, 3))
         conv_base.trainable = False
         model.add(conv_base)
         return model
@@ -34,7 +34,7 @@ class test_loader():
                     #print('not res , not image')
                     break
                 #print(image.shape)
-                image = cv2.resize(image, (144, 216))
+                image = cv2.resize(image, (180, 180))
                 image = (image - image.min(axis=0)) / (image.max(axis=0) - image.min(axis=0))
 
                 clip_1.append(image)
